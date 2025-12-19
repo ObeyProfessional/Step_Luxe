@@ -1,0 +1,73 @@
+<<<<<<< HEAD
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout - Hubtel Payment</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f7f7f7; padding: 40px; }
+    .checkout-box { background: #fff; max-width: 400px; margin: auto; padding: 20px; border-radius: 10px; box-shadow: 0 3px 8px rgba(0,0,0,0.2); }
+    h2 {   text-align: center; margin-bottom: 20px; }
+    button { width: 100%; padding: 12px; font-size: 16px; background: #28a745; color: #fff; border: none; border-radius: 6px; cursor: pointer; }
+    button:hover { background: #218838; }
+  </style>
+</head>
+<body>
+
+  <div class="checkout-box">
+    <h2>Checkout</h2>
+    <p><strong>Product:</strong> Sneakers</p>
+    <p><strong>Price:</strong> ₵50.00</p>
+
+    <!-- Hubtel Hosted Checkout Form -->
+    <form action="https://pay.hubtel.com/checkout" method="POST">
+      <!-- Replace with your details -->
+      <input type="hidden" name="merchantAccountNumber" value="YOUR_MERCHANT_ACCOUNT_NUMBER">
+      <input type="hidden" name="amount" value="50.00">
+      <input type="hidden" name="description" value="Sneakers Purchase">
+      <input type="hidden" name="callbackUrl" value="https://yourwebsite.com/thank-you.html">
+
+      <button type="submit">Pay Now with Hubtel</button>
+    </form>
+  </div>
+
+</body>
+</html>
+=======
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout - Hubtel Payment</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f7f7f7; padding: 40px; }
+    .checkout-box { background: #fff; max-width: 400px; margin: auto; padding: 20px; border-radius: 10px; box-shadow: 0 3px 8px rgba(0,0,0,0.2); }
+    h2 {   text-align: center; margin-bottom: 20px; }
+    button { width: 100%; padding: 12px; font-size: 16px; background: #28a745; color: #fff; border: none; border-radius: 6px; cursor: pointer; }
+    button:hover { background: #218838; }
+  </style>
+</head>
+<body>
+
+  <div class="checkout-box">
+    <h2>Checkout</h2>
+    <p><strong>Product:</strong> Sneakers</p>
+    <p><strong>Price:</strong> ₵50.00</p>
+
+    <!-- Hubtel Hosted Checkout Form -->
+    <form action="https://pay.hubtel.com/checkout" method="POST">
+      <!-- Replace with your details -->
+      <input type="hidden" name="merchantAccountNumber" value="YOUR_MERCHANT_ACCOUNT_NUMBER">
+      <input type="hidden" name="amount" value="50.00">
+      <input type="hidden" name="description" value="Sneakers Purchase">
+      <input type="hidden" name="callbackUrl" value="https://yourwebsite.com/thank-you.html">
+
+      <button type="submit">Pay Now with Hubtel</button>
+    </form>
+  </div>
+
+</body>
+</html>
+>>>>>>> 4620ce0db19e0098f0646551b22a8893775b359d

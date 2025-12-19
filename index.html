@@ -1,0 +1,801 @@
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Step Luxe</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+      
+
+    :root {
+      --bg:#0f0f10; --fg:#f6f6f6; --muted:#b9bcc3; --accent:#e7c185; --card:#17181b;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;height:100%}
+    body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--fg);line-height:1.5}
+    a{color:var(--fg);text-decoration:none}
+    .wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+    header{position:sticky;top:0;background:rgba(15,15,16,.7);backdrop-filter:saturate(140%) blur(8px);border-bottom:1px solid #1f2024;z-index:10}
+    .nav{display:flex;align-items:center;justify-content:space-between;height:64px}
+    .brand{display:flex;gap:10px;align-items:center;font-weight:600;letter-spacing:.4px}
+    .logo{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,#e7c185, #9b6b2f);display:grid;place-items:center;color:#0c0c0d;font-weight:800}
+    .nav a{opacity:.9;margin-left:18px}
+    .btn{display:inline-block;padding:10px 16px;border:1px solid #2a2b2f;border-radius:10px;background:#1a1b1f;color:var(--fg)}
+    .btn.accent{background:var(--accent);color:#1a1206;border:none}
+    /* Hero */
+    .hero{padding:72px 0 36px;display:grid;grid-template-columns:1.1fr .9fr;gap:32px;align-items:center}
+    .hero h1{font-size:44px;line-height:1.05;margin:0 0 10px}
+    .hero p{color:var(--muted);margin:0 0 22px}
+    .tag{display:inline-flex;gap:8px;align-items:center;padding:6px 10px;border:1px solid #2a2b2f;border-radius:999px;font-size:12px;color:#d9dbe1}
+    .hero-card{background:radial-gradient(70% 120% at 80% 10%, #23252a, #141519);border:1px solid #2a2b2f;border-radius:16px;padding:22px;position:relative;overflow:hidden}
+    .shoe{width:100%;filter:drop-shadow(0 40px 40px rgba(0,0,0,.5));transform:rotate(-12deg)}
+    .hero-badges{position:absolute;bottom:14px;left:14px;display:flex;gap:8px}
+    .chip{background:#0f0f10cc;border:1px solid #2a2b2f;padding:6px 10px;border-radius:999px;font-size:12px;color:#dcdfe6}
+    /* Grid */
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .card{background:var(--card);border:1px solid #2a2b2f;border-radius:14px;overflow:hidden}
+    .card img{width:100%;height:220px;object-fit:cover}
+    .card .info{padding:14px}
+    .price{color:var(--accent);font-weight:600}
+    /* Strip */
+    .strip{margin:44px 0;padding:14px;border:1px dashed #2a2b2f;border-radius:12px;color:black; background-color:wheat;gap:14px;align-items:center;justify-content:center;flex-wrap:wrap}
+    /* Footer */
+    footer{margin:44px 0 60px;color:#aeb3bd}
+    .cols{display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px}
+    .field{display:flex;gap:10px}
+    input[type="email"]{flex:1;padding:10px 12px;border-radius:10px;border:1px solid #2a2b2f;background:#121317;color:#e6e9ef}
+    @media (max-width:920px){.hero{grid-template-columns:1fr}.grid{grid-template-columns:1fr 1fr}.hero h1{font-size:36px}}
+    @media (max-width:620px){.grid{grid-template-columns:1fr}.nav .hide-sm{display:none}}
+    @media (max-width: 768px) {
+      .wrap { padding: 0 10px; }
+      .hero { padding: 50px 0 20px; grid-template-columns: 1fr; gap: 20px; }
+      .hero h1 { font-size: 32px; }
+      .hero p { font-size: 14px; }
+      .nav { flex-wrap: wrap; height: auto; padding: 10px 0; }
+      .brand { margin-bottom: 10px; }
+      .grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+      .card img { height: 180px; }
+      .cols { grid-template-columns: 1fr; gap: 20px; }
+      .strip { flex-direction: column; text-align: center; }
+      .cart-dropdown { min-width: 220px; }
+    }
+    @media (max-width: 480px) {
+      .hero h1 { font-size: 28px; }
+      .grid { grid-template-columns: 1fr; }
+      .btn { padding: 8px 12px; font-size: 14px; }
+      .card .info { padding: 10px; }
+      .hero-card { padding: 15px; }
+      .shoe { transform: rotate(-6deg); }
+      .cart-icon { margin-left: 5px; }
+      .cart-icon svg { width: 20px; height: 20px; }
+      .cart-dropdown { min-width: 220px; }
+      .account-icon { margin-left: 5px; }
+      .account-icon svg { width: 20px; height: 20px; }
+      .quantity-controls { gap: 3px; }
+      .quantity-controls button { width: 20px; height: 20px; }
+      .quantity-controls input { width: 35px; }
+    }
+   
+     .log{
+      width: 60px;
+      height: 50px;
+      border-radius: 50%;
+      object-fit: fill;
+      
+      margin: 0 auto;
+      background: white;
+    
+     }
+   
+    .group {
+ display: flex;
+ line-height: 28px;
+ align-items: center;
+ position: relative;
+ max-width: 190px;
+}
+
+.input {
+ width: 100%;
+ height: 40px;
+ line-height: 28px;
+ padding: 0 1rem;
+ padding-left: 2.5rem;
+ border: 2px solid transparent;
+ border-radius: 8px;
+ outline: none;
+ background-color: #f3f3f4;
+ color: #0d0c22;
+ transition: .3s ease;
+}
+
+.input::placeholder {
+ color: #9e9ea7;
+}
+
+.input:focus, input:hover {
+ outline: none;
+ border-color: rgba(234,76,137,0.4);
+ background-color: #fff;
+ box-shadow: 0 0 0 4px rgb(234 76 137 / 10%);
+}
+
+.icon {
+ position: absolute;
+ left: 1rem;
+ fill: #9e9ea7;
+ width: 1rem;
+ height: 1rem;
+}
+.cart-icon { position: relative; cursor: pointer; margin-left: 5px; }
+.cart-icon svg { width: 24px; height: 24px; color: var(--fg); }
+.cart-badge { position: absolute; top: -8px; right: -8px; background: var(--accent); color: #1a1206; border-radius: 50%; padding: 2px 6px; font-size: 12px; font-weight: 600; }
+.cart-dropdown { display: none; position: absolute; top: 100%; right: 0; background: var(--card); border: 1px solid #2a2b2f; border-radius: 8px; padding: 10px; min-width: 250px; z-index: 100; box-shadow: 0 4px 12px rgba(0,0,0,0.5); }
+.cart-dropdown.show { display: block; }
+.cart-item { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-size: 14px; }
+.cart-item span:first-child { flex: 1; }
+.cart-item span:nth-child(2) { color: var(--accent); }
+.remove-btn { background: none; border: none; color: #ff6b6b; font-size: 18px; cursor: pointer; padding: 0 5px; margin-left: 10px; }
+.remove-btn:hover { color: #ff5252; }
+.account-icon { margin-left: 10px; }
+.account-icon svg { width: 24px; height: 24px; color: var(--fg); }
+.quantity-controls { display: flex; align-items: center; gap: 5px; }
+.quantity-controls button { width: 25px; height: 25px; border: 1px solid #2a2b2f; background: #1a1b1f; color: var(--fg); cursor: pointer; border-radius: 4px; }
+.quantity-controls input { border: 1px solid #2a2b2f; background: #121317; color: var(--fg); text-align: center; }
+   /* dropdown menu */
+
+       .popup {
+  --burger-line-width: 1.125em;
+  --burger-line-height: 0.125em;
+  --burger-offset: 0.625em;
+  --burger-bg: rgba(0, 0, 0, .15);
+  --burger-color: white;
+  --burger-line-border-radius: 0.1875em;
+  --burger-diameter: 2.125em;
+  --burger-btn-border-radius: calc(var(--burger-diameter) / 2);
+  --burger-line-transition: .3s;
+  --burger-transition: all .1s ease-in-out;
+  --burger-hover-scale: 1.1;
+  --burger-active-scale: .95;
+  --burger-enable-outline-color: var(--burger-bg);
+  --burger-enable-outline-width: 0.125em;
+  --burger-enable-outline-offset: var(--burger-enable-outline-width);
+  /* nav */
+  --nav-padding-x: 0.25em;
+  --nav-padding-y: 0.625em;
+  --nav-border-radius: 0.375em;
+  --nav-border-color: #ccc;
+  --nav-border-width: 0.0625em;
+  --nav-shadow-color: rgba(0, 0, 0, .2);
+  --nav-shadow-width: 0 1px 5px;
+  --nav-bg:;
+  --nav-font-family: Menlo, Roboto Mono, monospace;
+  --nav-default-scale: .8;
+  --nav-active-scale: 1;
+  --nav-position-left: 0;
+  --nav-position-right: unset;
+  /* if you want to change sides just switch one property */
+  /* from properties to "unset" and the other to 0 */
+  /* title */
+  --nav-title-size: 0.625em;
+  --nav-title-color: #777;
+  --nav-title-padding-x: 1rem;
+  --nav-title-padding-y: 0.25em;
+  /* nav button */
+  --nav-button-padding-x: 1rem;
+  --nav-button-padding-y: 0.375em;
+  --nav-button-border-radius: 0.375em;
+  --nav-button-font-size: 12px;
+  --nav-button-hover-bg: #6495ed;
+  --nav-button-hover-text-color: #fff;
+  --nav-button-distance: 0.875em;
+  /* underline */
+  --underline-border-width: 0.0625em;
+  --underline-border-color: #ccc;
+  --underline-margin-y: 0.3125em;
+}
+
+/* popup settings 👆 */
+
+.popup {
+  display: inline-block;
+  text-rendering: optimizeLegibility;
+  position: relative;
+}
+
+.popup input {
+  display: none;
+}
+
+.burger {
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  background: var(--burger-bg);
+  width: var(--burger-diameter);
+  height: var(--burger-diameter);
+  border-radius: var(--burger-btn-border-radius);
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
+  transition: var(--burger-transition);
+  outline: var(--burger-enable-outline-width) solid transparent;
+  outline-offset: 0;
+}
+
+.burger span {
+  height: var(--burger-line-height);
+  width: var(--burger-line-width);
+  background: var(--burger-color);
+  border-radius: var(--burger-line-border-radius);
+  position: absolute;
+  transition: var(--burger-line-transition);
+}
+
+.burger span:nth-child(1) {
+  top: var(--burger-offset);
+}
+
+.burger span:nth-child(2) {
+  bottom: var(--burger-offset);
+}
+
+.burger span:nth-child(3) {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.popup-window {
+  transform: scale(var(--nav-default-scale));
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+  padding: var(--nav-padding-y) var(--nav-padding-x);
+  background: var(--nav-bg);
+  font-family: var(--nav-font-family);
+  color: var(--nav-text-color);
+  border-radius: var(--nav-border-radius);
+  box-shadow: var(--nav-shadow-width) var(--nav-shadow-color);
+  border: var(--nav-border-width) solid var(--nav-border-color);
+  top: calc(var(--burger-diameter) + var(--burger-enable-outline-width) + var(--burger-enable-outline-offset));
+  left: var(--nav-position-left);
+  right: var(--nav-position-right);
+  transition: var(--burger-transition);
+}
+
+.popup-window legend {
+  padding: var(--nav-title-padding-y) var(--nav-title-padding-x);
+  margin: 0;
+  color: var(--nav-title-color);
+  font-size: var(--nav-title-size);
+  text-transform: uppercase;
+}
+
+.popup-window ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.popup-window ul button {
+  outline: none;
+  width: 100%;
+  border: none;
+  background: none;
+  display: flex;
+  align-items: center;
+  color: var(--burger-color);
+  font-size: var(--nav-button-font-size);
+  padding: var(--nav-button-padding-y) var(--nav-button-padding-x);
+  white-space: nowrap;
+  border-radius: var(--nav-button-border-radius);
+  cursor: pointer;
+  column-gap: var(--nav-button-distance);
+}
+
+.popup-window ul li:nth-child(1) svg,
+.popup-window ul li:nth-child(2) svg {
+  color: cornflowerblue;
+}
+
+.popup-window ul li:nth-child(4) svg,
+.popup-window ul li:nth-child(5) svg {
+  color: rgb(153, 153, 153);
+}
+
+.popup-window ul li:nth-child(7) svg {
+  color: red;
+}
+
+.popup-window hr {
+  margin: var(--underline-margin-y) 0;
+  border: none;
+  border-bottom: var(--underline-border-width) solid var(--underline-border-color);
+}
+
+/* actions */
+
+.popup-window ul button:hover,
+.popup-window ul button:focus-visible,
+.popup-window ul button:hover svg,
+.popup-window ul button:focus-visible svg {
+  color: var(--nav-button-hover-text-color);
+  background: var(--nav-button-hover-bg);
+}
+
+.burger:hover {
+  transform: scale(var(--burger-hover-scale));
+}
+
+.burger:active {
+  transform: scale(var(--burger-active-scale));
+}
+
+.burger:focus:not(:hover) {
+  outline-color: var(--burger-enable-outline-color);
+  outline-offset: var(--burger-enable-outline-offset);
+}
+
+.popup input:checked+.burger span:nth-child(1) {
+  top: 50%;
+  transform: translateY(-50%) rotate(45deg);
+}
+
+.popup input:checked+.burger span:nth-child(2) {
+  bottom: 50%;
+  transform: translateY(50%) rotate(-45deg);
+}
+
+.popup input:checked+.burger span:nth-child(3) {
+  transform: translateX(calc(var(--burger-diameter) * -1 - var(--burger-line-width)));
+}
+
+.popup input:checked~nav {
+  transform: scale(var(--nav-active-scale));
+  visibility: visible;
+  opacity: 1;
+}
+
+
+
+
+/* css add to cart*/
+
+ 
+    .product, .cart, .checkout { padding: 20px; text-align: center; margin: 20px auto; max-width: 600px; border-radius: 10px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+    button { background: #28a745;  border: none; padding: 10px 20px; cursor: pointer; border-radius: 5px; }
+    button:hover { background: #218838; }
+    input, select { width: 100%; padding: 10px; margin: 8px 0; border-radius: 5px; border: }
+    .hidden { display: none; }
+
+     .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .card{background:var(--card);border:1px solid #2a2b2f;border-radius:14px;overflow:hidden}
+    .card img{width:100%;height:220px;object-fit:cover}
+    .card .info{padding:14px}
+    .price{color:var(--accent);font-weight:600}
+     
+            
+    
+
+
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap nav">
+    <div class="brand"><div class="logo">SL</div> Step Luxe</div>
+       <!-- search button-->
+    
+
+          <div><img src="images/img11.jpg" alt="Step Luxe" class="log"></div>
+
+    <div>
+       <form action="search.html" method="get">
+  <div class="group">
+  <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><g><path d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z"></path></g></svg>
+  <input placeholder="Search products..." type="search" class="input" id="searchInput" name="q">
+</div>
+</div>
+</form>
+
+    <div class="cart-icon" onclick="toggleCartDropdown()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="9" cy="21" r="1"/>
+        <circle cx="20" cy="21" r="1"/>
+        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+      </svg>
+      <span class="cart-badge" id="cartBadge">0</span>
+      <div class="cart-dropdown" id="cartDropdown">
+        <div id="cartItemsList"></div>
+        <div id="cartTotal" style="font-weight: bold; margin-top: 10px;"></div>
+        <a href="cart.html" class="btn">View Full Cart</a>
+      </div>
+    </div>
+
+    <div class="account-icon">
+      <a href="account.html">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+        </svg>
+      </a>
+    </div>
+
+      <!--dropdown menu-->
+
+    <div>
+      <label class="popup">
+  <input type="checkbox">
+  <div class="burger" tabindex="0">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+  <nav class="popup-window">
+    <legend>Menu</legend>
+    <ul>
+      <li>
+        <button>
+          <span><a href="About.html">New</a></span>
+        </button>
+      </li>
+         <li>
+        <button>
+          <span><a href="male.html">Male</a></span>
+        </button>
+      </li>
+           <li>
+        <button>
+          <span><a href="About.html">Female</a></span>
+        </button>
+      </li>
+       <li>
+        <button>
+          <span><a href="About.html">Kids</a></span>
+        </button>
+      </li>
+
+      <li>
+        <button>
+          <span><a href="cart.html">Order Now</a></span>
+        </button>
+      </li>
+      <li>
+        <button>
+          <span><a href="about.html">About Us</a></span>
+        </button>
+      </li>
+    </ul>
+  </nav>
+</label>
+    </div>
+
+  </header>
+
+
+
+
+  
+  <main class="wrap">
+    <section class="hero">
+      <div>
+        <span class="tag">Handpicked footwear • Small-batch makers</span>
+        <h1>Step Into Style, Walk With Confidence</h1>
+        <p>Curated sneakers, boots, and loafers crafted with character. Limited drops, lasting comfort.</p>
+        <div style="display:flex;gap:10px">
+          <a class="btn accent" href="#new">Shop new arrivals</a>
+          <a class="btn" href="#about">Our ethos</a>
+        </div>
+      </div>
+      <div class="hero-card">
+        <img class="shoe" alt="Featured sneaker" src="images/img7.jpg" />
+        <div class="hero-badges">
+          <div class="chip">Free returns 30 days</div>
+          <div class="chip">Ethically sourced</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="new" class="grid">
+      <article class="card">
+        <img alt="Desert boot" src="images/img6.jpg" />
+        <div class="info">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <strong>Remi Martin Boot</strong>
+            <span class="price">$168.99</span>
+          </div>
+           <div style="display:flex;justify-content:space-between;align-items:center;margin:8px 0">
+            <div class="quantity-controls">
+              <button onclick="changeQty('Remi Martin Boot-168-99', -1)">-</button>
+              <input type="number" id="qty-Remi Martin Boot-168-99" value="1" min="1" style="width:40px;text-align:center">
+              <button onclick="changeQty('Remi Martin Boot-168-99', 1)">+</button>
+            </div>
+          </div>
+           <div style="display:flex;justify-content:space-between;align-items:center">
+          <small class="muted">Suede • Sand</small>
+          <button onclick="addToCart(this, 'Remi Martin Boot', 168.99 )">Add to Cart</button>
+           </div>
+        </div>
+      </article>
+        
+      <article class="card">
+        <img alt="Desert boot" src="images/img5.jpg" />
+        <div class="info">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <strong>Desert Amber Boot</strong>
+            <span class="price">$168.20</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin:8px 0">
+            <div class="quantity-controls">
+              <button onclick="changeQty('Desert Amber Boot-168-20', -1)">-</button>
+              <input type="number" id="qty-Desert Amber Boot-168-20" value="1" min="1" style="width:40px;text-align:center">
+              <button onclick="changeQty('Desert Amber Boot-168-20', 1)">+</button>
+            </div>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center">
+          <small class="muted">Suede • Sand</small>
+          
+           <button onclick="addToCart(this, 'Desert Amber Boot', 168.20 )">Add to Cart</button>
+           </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <img alt="White sneaker" src="images/img4.jpg" />
+        <div class="info">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <strong>Studio Low</strong>
+            <span class="price">$140.71</span>
+          </div>
+           <div style="display:flex;justify-content:space-between;align-items:center;margin:8px 0">
+            <div class="quantity-controls">
+              <button onclick="changeQty('Studio Low-140-71', -1)">-</button>
+              <input type="number" id="qty-Studio Low-140-71" value="1" min="1" style="width:40px;text-align:center">
+              <button onclick="changeQty('Studio Low-140-71', 1)">+</button>
+            </div>
+          </div>
+           <div style="display:flex;justify-content:space-between;align-items:center">
+          <small class="muted">Leather • Cloud</small>
+          <button onclick="addToCart(this, 'Studio Low', 140.71 )">Add to Cart</button>
+           </div>
+        </div>
+      </article>
+      <article class="card">
+        <img alt="Loafer" src="images/img3.jpg" />
+        <div class="info">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <strong>Canal Loafer</strong>
+            <span class="price">$185.12</span>
+          </div>
+           <div style="display:flex;justify-content:space-between;align-items:center;margin:8px 0">
+            <div class="quantity-controls">
+              <button onclick="changeQty('Canal Loafer-185-12', -1)">-</button>
+              <input type="number" id="qty-Canal Loafer-185-12" value="1" min="1" style="width:40px;text-align:center">
+              <button onclick="changeQty('Canal Loafer-185-12', 1)">+</button>
+            </div>
+          </div>
+           <div style="display:flex;justify-content:space-between;align-items:center">
+          <small class="muted">Calfskin • Espresso</small>
+          <button onclick="addToCart(this, 'Canal Loafer', 185.12 )">Add to Cart</button>
+        </div>
+        </div>
+      </article>
+          <article class="card">
+        <img alt="White sneaker" src="images/img2.jpg" />
+        <div class="info">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <strong>Studio Low</strong>
+            <span class="price">$180.91</span>
+          </div>
+           <div style="display:flex;justify-content:space-between;align-items:center;margin:8px 0">
+            <div class="quantity-controls">
+              <button onclick="changeQty('Studio Low-180-91', -1)">-</button>
+              <input type="number" id="qty-Studio Low-180-91" value="1" min="1" style="width:40px;text-align:center">
+              <button onclick="changeQty('Studio Low-180-91', 1)">+</button>
+            </div>
+          </div>
+           <div style="display:flex;justify-content:space-between;align-items:center">
+          <small class="muted">Leather • Cloud</small>
+          <button onclick="addToCart(this, 'Studio Low', 180.91)">Add to Cart</button>
+        </div>
+        </div>
+      </article>
+
+      <section class="searchable">
+      <article class="card">
+        <img alt="White sneaker" src="images/img1.jpg" />
+        <div class="info">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <strong>Studio Low</strong>
+            <span class="price">$134.20</span>
+          </div>
+           <div style="display:flex;justify-content:space-between;align-items:center;margin:8px 0">
+            <div class="quantity-controls">
+              <button onclick="changeQty('Studio Low-134-20', -1)">-</button>
+              <input type="number" id="qty-Studio Low-134-20" value="1" min="1" style="width:40px;text-align:center">
+              <button onclick="changeQty('Studio Low-134-20', 1)">+</button>
+            </div>
+          </div>
+           <div style="display:flex;justify-content:space-between;align-items:center">
+          <small class="muted">Leather • Cloud</small>
+          <button onclick="addToCart(this, 'Studio Low', 134.20)">Add to Cart</button>
+           </div>
+        </div>
+      </article>
+      </section>
+    
+      <article class="card">
+        <img alt="White sneaker" src="images/img9.jpg" />
+        <div class="info">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <strong>Studio Low</strong>
+            <span class="price">$139.30</span>
+          </div>
+           <div style="display:flex;justify-content:space-between;align-items:center;margin:8px 0">
+            <div class="quantity-controls">
+              <button onclick="changeQty('Studio Low-139-30', -1)">-</button>
+              <input type="number" id="qty-Studio Low-139-30" value="1" min="1" style="width:40px;text-align:center">
+              <button onclick="changeQty('Studio Low-139-30', 1)">+</button>
+            </div>
+          </div>
+           <div style="display:flex;justify-content:space-between;align-items:center">
+          <small class="muted">Leather • Cloud</small>
+          <button onclick="addToCart(this, 'Studio Low', 139.30 )">Add to Cart</button>
+           </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <img alt="White sneaker" src="images/img10.jpg" />
+        <div class="info">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <strong>Studio Low</strong>
+            <span class="price">$190.20</span>
+          </div>
+           <div style="display:flex;justify-content:space-between;align-items:center;margin:8px 0">
+            <div class="quantity-controls">
+              <button onclick="changeQty('Studio Low-190-20', -1)">-</button>
+              <input type="number" id="qty-Studio Low-190-20" value="1" min="1" style="width:40px;text-align:center">
+              <button onclick="changeQty('Studio Low-190-20', 1)">+</button>
+            </div>
+          </div>
+           <div style="display:flex;justify-content:space-between;align-items:center">
+          <small class="muted">Leather • Cloud</small>
+          <button onclick="addToCart(this, 'Studio Low', 190.20)">Add to Cart</button>
+           </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <img alt="White sneaker" src="images/img5.jpg" />
+        <div class="info">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <strong>Studio Low</strong>
+            <span class="price">$129.60</span>
+          </div>
+           <div style="display:flex;justify-content:space-between;align-items:center;margin:8px 0">
+            <div class="quantity-controls">
+              <button onclick="changeQty('Studio Low-129-60', -1)">-</button>
+              <input type="number" id="qty-Studio Low-129-60" value="1" min="1" style="width:40px;text-align:center">
+              <button onclick="changeQty('Studio Low-129-60', 1)">+</button>
+            </div>
+          </div>
+           <div style="display:flex;justify-content:space-between;align-items:center">
+          <small class="muted">Leather • Cloud</small>
+          <button onclick="addToCart(this, 'Studio Low', 129.60 )">Add to Cart</button>
+           </div>
+        </div>
+      </article>
+
+          
+      
+    </section>
+
+    <div class="strip">
+      ★ Complimentary sizing consults in-store and via chat • Free shipping over $ 120 • Repairs program for members
+    </div>
+       <br
+         <center>    
+          <a class="btn accent" href="cart.html">Order Now</a>
+          <a class="btn" href="confirm.html">Confirm your Purchase</a>
+         </center>
+    
+        <section class="searchable">
+    <section id="about" class="cols"> 
+      <div>
+        <h3>Our ethos</h3>
+        </section>
+        <p>We partner with small workshops that pay living wages and source leathers responsibly. Every pair is built to last and backed by repairs.</p>
+      </div>
+      <div>
+        <h3>Visit us</h3>
+        <p>Oyarifa New Jerusalem</p>
+        <p> Digital Address GM-192-3670 </p> Open Monday–Saturday 6 am– 9 pm</p>
+        <p><a href="#">Get directions →</a></p>
+      </div>
+      
+    </section>
+     
+    
+    <footer> 
+      
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
+       <center> <small>© 2025<span id="year"></span> Step Luxe. Obey Professional </small> </center>
+        <small> <a href="#">Back To Top</a></small>
+      </div>
+    </footer>
+  </main>
+   <!--javascript-->
+
+   <script>
+  function toggleCartDropdown() {
+    const dropdown = document.getElementById('cartDropdown');
+    dropdown.classList.toggle('show');
+  }
+
+  function loadCart() {
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const badge = document.getElementById('cartBadge');
+    badge.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
+    const list = document.getElementById('cartItemsList');
+    list.innerHTML = '';
+    const totalDiv = document.getElementById('cartTotal');
+    if (cart.length === 0) {
+      list.innerHTML = '<p>Your cart is empty.</p>';
+      totalDiv.textContent = '';
+    } else {
+      cart.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'cart-item';
+        div.innerHTML = `<img src="${item.image.replace(/\\/g, '/')}" alt="${item.product}" style="width:40px;height:40px;margin-right:10px;"><span>${item.product} x${item.quantity}</span><span>$${item.price * item.quantity}</span>`;
+        list.appendChild(div);
+      });
+      const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+      totalDiv.textContent = `Total: $${total}`;
+    }
+  }
+
+  function changeQty(productPrice, change) {
+    const input = document.getElementById(`qty-${productPrice}`);
+    let current = parseInt(input.value) || 1;
+    current += change;
+    if (current < 1) current = 1;
+    input.value = current;
+  }
+
+  function addToCart(button, product, price) {
+    const article = button.closest('article');
+    const img = article.querySelector('img');
+    const image = img.src;
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    let priceStr = price.toString().replace('.', '-');
+    let quantity = parseInt(document.getElementById(`qty-${product}-${priceStr}`).value) || 1;
+    
+    for (let i = 0; i < quantity; i++) {
+      let existing = cart.find(item => item.product === product && item.price === price);
+      if (existing) {
+        existing.quantity += 1;
+      } else {
+        cart.push({ product, price, quantity: 1, image });
+      }
+    }
+    
+    localStorage.setItem('cart', JSON.stringify(cart));
+    loadCart();
+  }
+
+  window.onload = loadCart;
+</script>
+ 
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+

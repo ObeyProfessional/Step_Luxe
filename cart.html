@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple Order Flow</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; background: #f7f7f7; }
+    h1, h2 { text-align: center; }
+    .product, .cart, .checkout { background: #fff; padding: 20px; text-align: center; margin: 20px auto; max-width: 600px; border-radius: 10px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+    button { background: #28a745; color: #fff; border: none; padding: 10px 20px; cursor: pointer; border-radius: 5px; }
+    button:hover { background: #218838; }
+    input, select { width: 100%; padding: 10px; margin: 8px 0; border-radius: 5px; border: 1px solid #ccc; }
+    .hidden { display: none; }
+    a { text-decoration: none; }
+
+     .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .card{background:var(--card);border:1px solid #2a2b2f;border-radius:14px;overflow:hidden}
+    .card img{width:100%;height:220px;object-fit:cover}
+    .card .info{padding:14px}
+    .price{color:var(--accent);font-weight:600; color:#0f0f10}
+     
+       :root {
+      --bg:#0f0f10; --fg:#f6f6f6; --muted:#b9bcc3; --accent:#e7c185; 
+    }
+    
+    @media (max-width: 768px) {
+      body { margin: 10px; }
+      .product, .cart, .checkout { padding: 15px; margin: 10px auto; max-width: 100%; }
+      .grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+      button { padding: 8px 16px; font-size: 14px; }
+      input, select { padding: 8px; }
+    }
+    @media (max-width: 480px) {
+      .grid { grid-template-columns: 1fr; }
+      .product, .cart, .checkout { padding: 10px; }
+      h1, h2 { font-size: 20px; }
+    }
+    
+    
+
+
+  </style>
+</head>
+<body>
+  <!-- Back to homepage-->
+      <header> 
+      <div class="wrap nav">
+      <a class="btn" href="index.html">Back</a>
+      </div>
+
+    </header>
+
+  <h1>My Cart</h1>
+
+  <!-- Product Section -->
+  
+
+
+  <!-- Cart Section -->
+  <div class="cart hidden" id="cart">
+    <h2>Your Cart</h2>
+    <ul id="cartItems"></ul>
+    <p><strong>Total: $<span id="total">0</span></strong></p>
+    <button onclick="showCheckout()">Proceed to Checkout</button>
+    <button onclick="cancelOrder()" style="background: #dc3545; margin-left: 10px;">Cancel Order</button>
+  </div>
+
+  <!-- Checkout Section -->
+  <div class="checkout hidden" id="checkout">
+    <h2>Checkout</h2>
+    <form onsubmit="placeOrder(event)">
+      <label>Full Name:</label>
+      <input type="text" required>
+      <label>Email:</label>
+      <input type="email" required>
+      <label>Address:</label>
+      <input type="text" required>
+      <label>Payment Method:</label>
+      <select required>
+        <option value="">Select</option>
+        <option>Credit Card</option>
+        <option>Mobile money</option>
+        <option>Cash on Delivery</option>
+      </select>
+
+      <!--submit button-->
+      <div style="display: flex; justify-content: space-between; margin-top: 20px;">
+        <button type="submit" style="flex: 1; margin-right: 10px;">Place Order</button>
+        <button type="button" onclick="cancelOrder()" style="background: #dc3545; flex: 1; margin-left: 10px;">Cancel Order</button>
+      </div>
+
+    </form>
+  </div>
+
+  <!-- Order Confirmation -->
+  <div class="checkout hidden" id="confirmation">
+    <h2>✅ Order Placed Successfully!</h2>
+    <p>Thank you for your order. Your Order ID is <strong id="orderId"></strong></p>
+    <p>Review your order details above. If everything looks good, confirm to finalize.</p>
+    <button onclick="confirmOrder()">Confirm Order</button>
+    <button onclick="cancelPlacedOrder()" style="background: #dc3545; margin-left: 10px;">Cancel Order</button>
+  </div>
+
+<script>
+  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+  let total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+
+  function addToCart(product, price) {
+    let existing = cart.find(item => item.product === product && item.price === price);
+    if (existing) {
+      existing.quantity += 1;
+    } else {
+      cart.push({ product, price, quantity: 1 });
+    }
+    total += price;
+    localStorage.setItem('cart', JSON.stringify(cart));
+    document.getElementById("cart").classList.remove("hidden");
+    updateCart();
+  }
+
+  function updateCart() {
+    let cartItems = document.getElementById("cartItems");
+    cartItems.innerHTML = "";
+    // Sort cart by price ascending
+    cart.sort((a, b) => a.price - b.price);
+    cart.forEach((item, index) => {
+      let li = document.createElement("li");
+      li.style.display = "flex";
+      li.style.justifyContent = "space-between";
+      li.style.alignItems = "center";
+      li.style.marginBottom = "10px";
+      
+      let img = document.createElement("img");
+      img.src = item.image.replace(/\\/g, '/');
+      img.alt = item.product;
+      img.style.width = "50px";
+      img.style.height = "50px";
+      img.style.marginRight = "10px";
+      
+      let itemInfo = document.createElement("span");
+      itemInfo.textContent = item.product + " - $" + item.price;
+      
+      let qtyControls = document.createElement("div");
+      qtyControls.style.display = "flex";
+      qtyControls.style.alignItems = "center";
+      qtyControls.style.gap = "5px";
+      
+      let minusBtn = document.createElement("button");
+      minusBtn.textContent = "-";
+      minusBtn.onclick = () => changeQty(index, -1);
+      minusBtn.style.padding = "5px 10px";
+      
+      let qtyInput = document.createElement("input");
+      qtyInput.type = "number";
+      qtyInput.value = item.quantity;
+      qtyInput.min = "1";
+      qtyInput.style.width = "50px";
+      qtyInput.style.textAlign = "center";
+      qtyInput.onchange = () => updateQty(index, parseInt(qtyInput.value));
+      
+      let plusBtn = document.createElement("button");
+      plusBtn.textContent = "+";
+      plusBtn.onclick = () => changeQty(index, 1);
+      plusBtn.style.padding = "5px 10px";
+      
+      qtyControls.appendChild(minusBtn);
+      qtyControls.appendChild(qtyInput);
+      qtyControls.appendChild(plusBtn);
+      
+      let removeBtn = document.createElement("button");
+      removeBtn.textContent = "Remove";
+      removeBtn.onclick = () => removeFromCart(index);
+      removeBtn.style.background = "#dc3545";
+      removeBtn.style.marginLeft = "10px";
+      
+      li.appendChild(img);
+      li.appendChild(itemInfo);
+      li.appendChild(qtyControls);
+      li.appendChild(removeBtn);
+      cartItems.appendChild(li);
+    });
+    document.getElementById("total").textContent = total;
+  }
+
+  function showCheckout() {
+    document.getElementById("checkout").classList.remove("hidden");
+  }
+
+  function placeOrder(event) {
+    event.preventDefault();
+    let orderId = "ORD" + Math.floor(Math.random() * 1000000);
+    document.getElementById("checkout").classList.add("hidden");
+    document.getElementById("confirmation").classList.remove("hidden");
+    document.getElementById("orderId").textContent = orderId;
+    // Do not clear cart yet; wait for confirmation
+  }
+
+  function confirmOrder() {
+    // Finalize the order: clear cart
+    cart = [];
+    total = 0;
+    localStorage.setItem('cart', JSON.stringify(cart));
+    alert('Order confirmed! Thank you for shopping with Step Luxe.');
+    document.getElementById("confirmation").classList.add("hidden");
+    // Optionally, redirect or show a thank you page
+  }
+
+  function cancelPlacedOrder() {
+    // Cancel the order: hide confirmation and show checkout again
+    document.getElementById("confirmation").classList.add("hidden");
+    document.getElementById("checkout").classList.remove("hidden");
+  }
+
+  function removeFromCart(index) {
+    cart[index].quantity -= 1;
+    total -= cart[index].price;
+    if (cart[index].quantity === 0) {
+      cart.splice(index, 1);
+    }
+    localStorage.setItem('cart', JSON.stringify(cart));
+    updateCart();
+    if (cart.length === 0) {
+      document.getElementById("cart").classList.add("hidden");
+    }
+  }
+
+  function changeQty(index, change) {
+    cart[index].quantity += change;
+    if (cart[index].quantity < 1) cart[index].quantity = 1;
+    total += change * cart[index].price;
+    localStorage.setItem('cart', JSON.stringify(cart));
+    updateCart();
+  }
+
+  function updateQty(index, newQty) {
+    if (newQty < 1) newQty = 1;
+    let diff = newQty - cart[index].quantity;
+    cart[index].quantity = newQty;
+    total += diff * cart[index].price;
+    localStorage.setItem('cart', JSON.stringify(cart));
+    updateCart();
+  }
+
+  function cancelOrder() {
+    cart = [];
+    total = 0;
+    localStorage.setItem('cart', JSON.stringify(cart));
+    updateCart();
+    document.getElementById("cart").classList.add("hidden");
+    document.getElementById("checkout").classList.add("hidden");
+  }
+
+  // Initialize cart display if not empty
+  if (cart.length > 0) {
+    document.getElementById("cart").classList.remove("hidden");
+    updateCart();
+  }
+</script>
+
+   <!--Order ID (Short answer)
+Full Name
+Email
+Address
+Payment Method
+Items Ordered (Paragraph or Short answer)
+Total Amount
+ 
+
+-->
+
+      <footer> 
+     
+         <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
+       <center> <small>© <span id="year"></span> Step Luxe. All Rights Reserved. Obey Professional</small> </center>
+        <small> <a href="#">Back To Top</a></small>
+      </div>
+
+
+
+
+   <!-- <div class="wrap nav">
+      <small><a class="btn"></a> <a href="cart.html">Back To Top</a></small>
+      <center><small>© <span id="year"></span> Step Luxe. All Rights Reserved. Obey Professional</small></center>
+      
+      </div>
+      -->
+    </footer>
+
+</body>
+</html>

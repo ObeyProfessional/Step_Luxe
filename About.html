@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang='en'>
+<head>
+  <meta charset='utf-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <title>Step Luxe About</title>
+  <link href='https://fnts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap' rel='stylesheet'>
+  <style>
+    :root {
+      --bg:#0f0f10; --fg:#f5f6f7; --muted:#b9bcc3; --accent:#e7c185; --card:#15171b;
+      --stroke:#24262b;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;height:100%}
+    body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--fg);line-height:1.6}
+    a{color:var(--fg);text-decoration:none}
+    .wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+    header{position:sticky;top:0;background:rgba(15,15,16,.7);backdrop-filter:saturate(140%) blur(8px);border-bottom:1px solid var(--stroke);z-index:10}
+    .nav{display:flex;align-items:center;justify-content:space-between;height:64px}
+    .brand{display:flex;gap:10px;align-items:center;font-weight:700;letter-spacing:.3px}
+    .logo{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,#e7c185,#9b6b2f);display:grid;place-items:center;color:#0c0c0d;font-weight:800}
+    .nav a{opacity:.9;margin-left:16px}
+    .nav a:hover{opacity:1}
+
+    /* Hero */
+    .hero{position:relative;overflow:hidden;border-bottom:1px solid var(--stroke)}
+    .hero .wrap{padding:64px 20px 40px}
+    .pill{display:inline-flex;gap:8px;align-items:center;padding:8px 12px;border:1px solid var(--stroke);border-radius:999px;background:#121317;color:#cfd3db;font-size:12px}
+    .glow{position:absolute;inset:-20%;background:radial-gradient(600px 300px at 110% -10%, rgba(231,193,133,.14), transparent 40%), radial-gradient(600px 300px at -10% 110%, rgba(231,193,133,.08), transparent 40%);filter:blur(40px);opacity:.6;pointer-events:none}
+    h1{font-size:44px;line-height:1.1;margin:14px 0 6px}
+    p.lead{color:var(--muted);max-width:720px;margin:0 0 10px}
+
+    /* Grid sections */
+    .section{padding:40px 0;border-top:1px solid var(--stroke)}
+    .grid-2{display:grid;grid-template-columns:1.1fr .9fr;gap:22px}
+    .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    @media(max-width:900px){.grid-2,.grid-3{grid-template-columns:1fr}}
+    @media (max-width: 768px) {
+      .wrap { padding: 0 10px; }
+      .hero .wrap { padding: 40px 10px 20px; }
+      h1 { font-size: 32px; }
+      .nav { flex-wrap: wrap; height: auto; padding: 10px 0; }
+      .brand { margin-bottom: 10px; }
+      .section { padding: 20px 0; }
+      .grid-2 { gap: 15px; }
+      .cta { flex-direction: column; }
+      .btn { width: 100%; text-align: center; }
+    }
+    @media (max-width: 480px) {
+      h1 { font-size: 28px; }
+      .pill { font-size: 10px; padding: 6px 10px; }
+      .stat .num { font-size: 20px; }
+      .quote { font-size: 16px; }
+    }
+
+    .card{background:var(--card);border:1px solid var(--stroke);border-radius:14px;overflow:hidden}
+    .card .pad{padding:16px}
+    .muted{color:var(--muted)}
+    .accent{color:var(--accent)}
+
+    .stat{display:flex;flex-direction:column;gap:2px;padding:14px;border:1px solid var(--stroke);border-radius:12px;background:#121317}
+    .stat .num{font-size:24px;font-weight:700}
+
+    .quote{font-size:18px}
+
+    .cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+    .btn{padding:10px 14px;border-radius:12px;border:1px solid var(--stroke);background:#121317;color:#e6e9ef}
+    .btn.fill{background:linear-gradient(135deg,#e7c185,#b98945);color:#101010;font-weight:600;border:0}
+
+    footer{padding:24px 0;border-top:1px solid var(--stroke);color:#a9adb5;font-size:14px}
+  </style>
+</head>
+<body>
+  <header>
+     
+    <nav>
+        <a href='C:\Users\NOW\Desktop\Step Luxe\Index.html'>Back</a>
+        
+      </nav>
+  
+    <div class='wrap nav'>
+      <div class='brand'>
+        <div class='logo'>SL</div>
+        <span>Step Luxe</span>
+      </div>
+      <nav>
+        <a href='#story'>Our Story</a>
+        
+      </nav>
+    </div>
+  </header>
+
+  <section class='hero'>
+    <div class='glow'></div>
+    <div class='wrap'>
+      <span class='pill'>Since 2025 • Independent Footwear Retailed House</span>
+      <h1>About Sole & Story</h1>
+      <p class='lead'>We make footwear that feels as good as it looks — blending heritage craftsmanship with modern materials to meet everyday life, from city walks to weekend escapes.</p>
+      <div class='cta'>
+        <a class='btn fill' href='#contact'>Talk to us</a>
+        <a class='btn' href='#craft'>Explore our craft</a>
+      </div>
+    </div>
+  </section>
+
+  <main>
+    <section id='story' class='section'>
+      <div class='wrap grid-2'>
+        <div class='card'>
+          <div class='pad'>
+            <h3>Our Story</h3>
+            <p class='muted'>Sole & Story began in a tiny studio with a simple idea: shoes should move with you. What started as limited runs for friends and neighbors grew into a boutique label trusted for fit-first design and durable construction.</p>
+            <p class='muted'>We obsess over last shapes, foam densities, and leathers that age gracefully — so you can put your best foot forward, day after day.</p>
+          </div>
+        </div>
+        <div class='card'>
+          <div class='pad'>
+            <h4>At-a-glance</h4>
+            <div class='grid-3'>
+              <div class='stat'><span class='num'>2025</span><span class='muted'>Founded</span></div>
+              <div class='stat'><span class='num'>Over +90</span><span class='muted'>Pairs Available</span></div>
+              <div class='stat'><span class='num'>98%</span><span class='muted'>Satisfaction From Customersss</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id='craft' class='section'>
+      <div class='wrap grid-2'>
+        <div class='card'>
+          <div class='pad'>
+            <h3>Materials & Craft</h3>
+            <p class='muted'>We source Gold-rated leathers, recycled meshes, and low-VOC adhesives. Our soles blend natural rubber with responsive EVA for balanced cushioning and grip.</p>
+            <ul class='muted'>
+              <li>Gold-rated leather & recycled mesh uppers</li>
+              <li>Ortholite insoles with arch support</li>
+              <li>Stitch-and-turn construction for comfort</li>
+              <li>Replaceable insoles, repair-friendly design</li>
+            </ul>
+          </div>
+        </div>
+       
+    <section id='contact' class='section'>
+      <div class='wrap grid-2'>
+        <div class='card'>
+          <div class='pad'>
+            <h3>Visit us</h3>
+            <p class='muted'>New Jerusalem, Oyarifa, GM-192-3670 • Mon–Sat 10–7 • Sun 11–5</p>
+            <div style='display:flex;gap:10px;flex-wrap:wrap;margin-top:8px'>
+              <a class='btn fill' href='tel:+233257300400'>Call + (233) 257-300-400</a>
+              <a class='btn' href='mailto:stepluxe.com'>stepluxe.com</a>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
+        <small>© 2025<span id="year"></span > Step Luxe. All Right Reserved Design by Obey Professional</small> 
+        <small> <a href="#">Back To Top</a></small>
+      </div
+      </footer>
+  </footer>
+</body>
+</html>
+

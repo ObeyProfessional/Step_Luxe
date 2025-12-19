@@ -1,0 +1,50 @@
+<section>
+  <h2>Customer Registration</h2>
+  <iframe id="gform" 
+          src="https://docs.google.com/forms/d/e/1FAIpQLSeO5_Ks7Vs1UiNd9_sWJHnyHuJdPzosjdkGFbiF55_t3rMGdg/viewform?embedded=true"
+          width="100%" height="80%" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+
+  <p id="thankyou" style="display: none; color: green; font-weight: bold;">
+    ✅ Thank you for your submission!
+  </p>
+</section>
+
+<script>
+  const iframe = document.getElementById('gform');
+  const thankYou = document.getElementById('thankyou');
+
+  iframe.onload = function () {
+    // Google Form redirects to "formResponse" page after submit
+    if (iframe.contentWindow.location.href.includes("formResponse")) {
+      iframe.style.display = "none";   // Hide form
+      thankYou.style.display = "block"; // Show thank you text
+    }
+  };
+=======
+
+
+<section>
+  <h2>Customer Registration</h2>
+  <iframe id="gform" 
+          src="<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeO5_Ks7Vs1UiNd9_sWJHnyHuJdPzosjdkGFbiF55_t3rMGdg/viewform?embedded=true" width="640" height="1626" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>"
+          width="100%" height="80%" frameborder="0">
+  </iframe>
+
+  <p id="thankyou" style="display: none; color: green; font-weight: bold;">
+    ✅ Thank you for your submission!
+  </p>
+</section>
+
+<script>
+  const iframe = document.getElementById('gform');
+  const thankYou = document.getElementById('thankyou');
+
+  iframe.onload = function () {
+    // Google Form redirects to "formResponse" page after submit
+    if (iframe.contentWindow.location.href.includes("formResponse")) {
+      iframe.style.display = "none";   // Hide form
+      thankYou.style.display = "block"; // Show thank you text
+    }
+  };
+>>>>>>> 4620ce0db19e0098f0646551b22a8893775b359d
+</script>

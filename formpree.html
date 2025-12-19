@@ -1,0 +1,137 @@
+<<<<<<< HEAD
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order Checkout</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f7f7f7; padding: 40px; }
+    .checkout-box { background: #fff; max-width: 500px; margin: auto; padding: 20px; border-radius: 10px; box-shadow: 0 3px 8px rgba(0,0,0,0.2); }
+    label { display: block; margin: 10px 0 5px; }
+    input, textarea { width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 6px; }
+    button { width: 100%; padding: 12px; font-size: 16px; background: #28a745; color: #fff; border: none; border-radius: 6px; cursor: pointer; }
+    button:hover { background: #218838; }
+  </style>
+</head>
+<body>
+  
+  <center>
+  <div class="checkout-box">
+    <h2>Order Checkout</h2>
+
+    <!-- Step 1: Collect Customer Info and Email It -->
+    <form id="orderForm" action="https://formspree.io/f/mjkeykkp" method="POST">
+      <label>Full Name:</label>
+      <input type="text" name="customer_name" required>
+
+      <label>Item Name:</label>
+      <input type="tel" name="Item_Name" required>
+
+      <label>Phone Number:</label>
+      <input type="tel" name="customer_phone" required>
+
+      <label>Delivery Address:</label>
+      <textarea name="customer_address" required></textarea>
+
+      <!-- Hidden product details -->
+      <input type="hidden" name="product" value="Sneakers">
+      <input type="hidden" name="amount" value="50.00">
+
+      <button type="submit">Continue to Payment</button>
+    </form>
+  </div>
+  </center>
+
+  <script>
+    // After form submits to your email, redirect to Hubtel checkout
+    document.getElementById("orderForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      // send form data to Formspree
+      fetch(this.action, {
+        method: this.method,
+        body: new FormData(this),
+        headers: { 'Accept': 'application/json' }
+      }).then(response => {
+        if (response.ok) {
+          // Redirect customer to Hubtel payment
+          window.location.href = "https://pay.hubtel.com/checkout?merchantAccountNumber=YOUR_MERCHANT_ACCOUNT_NUMBER&amount=50.00&description=Sneakers%20Purchase&callbackUrl=https://yourwebsite.com/thank-you.html";
+        } else {
+          alert("There was an error sending the order. Please try again.");
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
+=======
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order Checkout</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f7f7f7; padding: 40px; }
+    .checkout-box { background: #fff; max-width: 500px; margin: auto; padding: 20px; border-radius: 10px; box-shadow: 0 3px 8px rgba(0,0,0,0.2); }
+    label { display: block; margin: 10px 0 5px; }
+    input, textarea { width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 6px; }
+    button { width: 100%; padding: 12px; font-size: 16px; background: #28a745; color: #fff; border: none; border-radius: 6px; cursor: pointer; }
+    button:hover { background: #218838; }
+  </style>
+</head>
+<body>
+  
+  <center>
+  <div class="checkout-box">
+    <h2>Order Checkout</h2>
+
+    <!-- Step 1: Collect Customer Info and Email It -->
+    <form id="orderForm" action="https://formspree.io/f/mjkeykkp" method="POST">
+      <label>Full Name:</label>
+      <input type="text" name="customer_name" required>
+
+      <label>Item Name:</label>
+      <input type="tel" name="Item_Name" required>
+
+      <label>Phone Number:</label>
+      <input type="tel" name="customer_phone" required>
+
+      <label>Delivery Address:</label>
+      <textarea name="customer_address" required></textarea>
+
+      <!-- Hidden product details -->
+      <input type="hidden" name="product" value="Sneakers">
+      <input type="hidden" name="amount" value="50.00">
+
+      <button type="submit">Continue to Payment</button>
+    </form>
+  </div>
+  </center>
+
+  <script>
+    // After form submits to your email, redirect to Hubtel checkout
+    document.getElementById("orderForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      // send form data to Formspree
+      fetch(this.action, {
+        method: this.method,
+        body: new FormData(this),
+        headers: { 'Accept': 'application/json' }
+      }).then(response => {
+        if (response.ok) {
+          // Redirect customer to Hubtel payment
+          window.location.href = "https://pay.hubtel.com/checkout?merchantAccountNumber=YOUR_MERCHANT_ACCOUNT_NUMBER&amount=50.00&description=Sneakers%20Purchase&callbackUrl=https://yourwebsite.com/thank-you.html";
+        } else {
+          alert("There was an error sending the order. Please try again.");
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
+>>>>>>> 4620ce0db19e0098f0646551b22a8893775b359d
